@@ -1,0 +1,21 @@
+alias l="lsd"
+alias la="lsd -la"
+alias ..="cd .."
+
+
+# Git checkout
+gc() {
+        git checkout $(git log --pretty=oneline | fzf | awk '{print $1}');
+}
+
+# Git checkout and branch
+gcb() {
+        git checkout -b $(git log --pretty=oneline | fzf | awk '{print $1}');
+}
+
+
+# Git switch branch
+gsb() {
+        git checkout $(git branch -l | sed 's/*.*$//g' | fzf | awk '{print $1}');
+}
+

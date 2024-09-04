@@ -1,0 +1,1 @@
+FROM ghcr.io/colombalink/dev-docker-image@sha256:aeb81c6b4a702280410eea7f9ec744aa07487ff0f6af10b9516648bda0b78602
