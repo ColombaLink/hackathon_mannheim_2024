@@ -16,6 +16,6 @@ gcb() {
 
 # Git switch branch
 gsb() {
-        git checkout $(git branch -l | sed 's/*.*$//g' | fzf | awk '{print $1}');
+        git checkout $(git branch -l | sed 's/*.*$
 }
 

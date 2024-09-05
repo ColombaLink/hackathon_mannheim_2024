@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "module": "nodenext", 
+        "moduleResolution": "nodenext", 
+        "target": "es2022", 
+        "outDir": "./dist/test", 
+        "strict": true, 
+        "esModuleInterop": true, 
+        "skipLibCheck": true, 
+        "forceConsistentCasingInFileNames": true, 
+        "allowSyntheticDefaultImports": true, 
+        "sourceMap": true, 
+        "noImplicitAny": false,
+        "declaration": false,
+        "noPropertyAccessFromIndexSignature": false,
+        "allowUnusedLabels": false,
+        "allowUnreachableCode": false,
+        "exactOptionalPropertyTypes": false,
+        "strictNullChecks": false,
+    },
+    "include": [
+        "test/**/*.ts"
+    ], 
+    "exclude": [
+        "node_modules"
+    ] 
+}

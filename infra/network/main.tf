@@ -96,12 +96,15 @@ resource "azurerm_ai_services" "hackfestival_ai" {
 
 # Define a single Azure Linux Virtual Machine
 resource "azurerm_linux_virtual_machine" "hackfestival_vm" {
-  name                = "hackfestival-vm"
+  name                = "hack-vm"
   location            = azurerm_resource_group.hackfestival_rg.location
   resource_group_name = azurerm_resource_group.hackfestival_rg.name
   size                = "Standard_D16s_v3"
   admin_username      = "hacker"
 
+  secure_boot_enabled = false
+
+  source_image_id = "/subscriptions/${var.AZURE_SUBSCRIPTION_ID}/resourceGroups/hackfestival-resources/providers/Microsoft.Compute/images/hackfestival-vm-image-20240904221323"
   # Add SSH Key
   admin_ssh_key {
     username   = "hacker"
@@ -110,10 +113,10 @@ resource "azurerm_linux_virtual_machine" "hackfestival_vm" {
 
   # OS Disk Configuration
   os_disk {
-    name                 = "hackfestival_os_disk"
+    name                 = "hack-vm_disk1"
     caching              = "ReadWrite"
     storage_account_type = "Premium_LRS"
-    disk_size_gb         = 30
+    disk_size_gb         = 1024
   }
 
   # Data Disk Configuration
@@ -130,13 +133,8 @@ resource "azurerm_linux_virtual_machine" "hackfestival_vm" {
     azurerm_network_interface.hackfestival_vm_nic.id,
   ]
 
-  # Source Image Reference
-  source_image_reference {
-    publisher = "Canonical"
-    offer     = "0001-com-ubuntu-server-focal"
-    sku       = "20_04-lts-gen2"
-    version   = "latest"
-  }
+
+  
 }
 
 # Public IP for the VM
