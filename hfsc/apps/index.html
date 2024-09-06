@@ -1,28 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Based Client Example</title>
 </head>
 <body>
-    <h1>Using BasedClient</h1>
-
-    <script type="module">
-        // Import the BasedClient from the provided URL
-        import { BasedClient } from 'https://app.sc.hack.monidas.com/libs/based-client.js';
-
-        // Initialize and use the BasedClient class
-        const client = new BasedClient();
-        console.log(client)
-        // Example method call (assuming there are methods in the BasedClient)
-        client.connect()
-            .then(() => {
-                console.log('Client connected successfully');
-            })
-            .catch((error) => {
-                console.error('Error connecting client:', error);
-            });
-    </script>
+    <button id="login">Login</button> 
+    <button id="logout" style="visibility: hidden;">Logout</button>
+    <script type="module" src="./login.js"> </script>
 </body>
+
 </html>
