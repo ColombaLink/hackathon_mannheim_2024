@@ -1,30 +1,43 @@
 import { CBasedTestServerSpec, TestServer, SelvaTestClusterSpec, saveOnShutdown } from '@colombalink/cbased-core'
+import { connect } from '@saulx/selva'
 import * as fs from 'fs';
 import * as path from 'path';
 
 
 const run = async () => {
     let appSpec = new CBasedTestServerSpec()
-    appSpec.name = `${env}/default/all`
-    appSpec.defaultDbName = "hack"
-    appSpec.port = 8001
+    appSpec.name = `default`
+    appSpec.defaultDbName = "default"
+    appSpec.port = 8010
     appSpec.devMode = true
-    await appSpec.loadFunctions('./functions/app')
+    await appSpec.loadFunctions('./functions/sc')
     await appSpec.setFunctionsAuthAutomatically()
     
-    await spec.generateKeys("/workspaces/monidas/apps/monidas/.tmp/keys")
+    await appSpec.generateKeys("/workspaces/monidas/apps/monidas/.tmp/keys")
     let testServer = new TestServer(appSpec)
     const selvaSpec = new SelvaTestClusterSpec()
     selvaSpec.dir = ".tmp/data"
+
+    const selvaC = connect({
+        host: 'localhost',
+        port: 9000
+    })
+    
+
+
+    
     testServer.setSelvaClusterSpec(selvaSpec)
 
-    await testServer.start()
-
+    await testServer.startBased(appSpec)
+    const x = testServer.basedServers.get("default").server.clients.selva
+    console.log(x)
+    console.log(await x.get({
+        $db: 'default',
+        $all: true
+    })) 
     // Watch for changes in the functions folder
-    watchFolderRecursive('./functions/app', appSpec, testServer)
+    watchFolderRecursive('./functions/sc', appSpec, testServer)
 
-    const origin = testServer.getSelvaCluster().getOrigin("hack")
-    saveOnShutdown(origin)
 }
 
 
