@@ -18,7 +18,9 @@
         "@based/server": "9.1.0",
         "@based/react": "5.0.2",
         "@based/functions": "3.0.2",
-        "@saulx/selva": "23.0.2"
+        "@saulx/selva": "23.0.2",
+        "@saulx/hash": "3.0.0",
+        "esbuild": "0.23.1"
     },
     "ava": {
         "files": [

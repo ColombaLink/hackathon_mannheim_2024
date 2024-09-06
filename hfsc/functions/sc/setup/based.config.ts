@@ -1,5 +1,5 @@
 const config = {
-  name: 'sc:client-test',
+  name: 'sc:setup',
   type: 'function',
   public: true
 }
