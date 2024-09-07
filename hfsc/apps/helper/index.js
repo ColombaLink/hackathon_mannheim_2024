@@ -26,3 +26,18 @@ export const getContext = (userId, orgAliasId, projectAliasId) => {
     }
   }
 }
+
+
+export const sanitizeNames = (name) => {
+  let sane = name.replace(",", " ").replace("è", 'e').replace("î", 'i')
+  return sane
+}
+
+
+export const saveMap = (key, map) => {
+    localStorage.setItem(key, JSON.stringify([...map]));
+}
+
+export const loadMap = (key) => {
+    return new Map(JSON.parse(localStorage.getItem(key)));
+}

@@ -1,4 +1,4 @@
-import { getAllOrganizations, getContext } from "../helper/index.js";
+import { getAllOrganizations, getContext, loadMap, sanitizeNames as sanitizeName, saveMap } from "../helper/index.js";
 
 const initialHtml = `
   <ion-header>
@@ -63,19 +63,69 @@ class DataIngestionsPage extends HTMLElement {
     }, getContext())
 
 
-    const created = new Map()
+
+    const thingsMap = new Map()
     for (const item of rawInventory) {
-      if(created.has(item.name)) {
-        return 
+      if (window.limits.inventoryCount > window.limits.maxInventory) {
+        continue
+      }
+      item.name = sanitizeName(item.name)
+      if (thingsMap.has(item.name)) {
+        const thing = thingsMap.get(item.name)
+        thing.available = thing.available + item.available
+        continue
       }
 
-      await api.project.addThingToProject.mutate({
+      const thing = await api.project.addThingToProject.mutate({
         name: item.name,
       }, getContext())
 
-      created.set(item.name, true)
+      thingsMap.set(item.name, {
+        available: item.available,
+        ...thing
+      })
+
+      await api.thing.setPayloadSchema.mutate({
+        thingAliasId: thing.alias,
+        identifiers: [],
+        tags: [],
+        values: ["quantity"],
+        propertyPaths: [{
+          path: 'quantity',
+          unitUri: 'http://sample.ch/units/Unitless'
+        }],
+        influxTags: [],
+        properties: [
+          {
+            label: {
+              en: 'Quantity',
+              de: 'Quantität'
+            },
+            name: 'quantity',
+            primitiveDataType: 'int',
+            unit: {
+              label: {
+                en: '',
+                de: ''
+              },
+              uri: 'http://sample.ch/units/Unitless',
+              abbreviation: '',
+              symbol: ''
+            }
+          },
+        ]
+      }, getContext())
+
+      window.limits.inventoryCount++
+      console.log(window.limits.inventoryCount)
     }
+
+    saveMap("inventoryMap", thingsMap)
+    const map = loadMap("inventoryMap")
+
+    console.log(map)
   }
+
 
 
   render() {
