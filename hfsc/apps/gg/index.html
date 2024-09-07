@@ -191,42 +191,12 @@
         </div>
         <div class="chat-footer">
             <input type="text" placeholder="Type a message..." id="userInput">
-            <button onclick="sendMessage()">Send</button>
+            <button onclick="window.sendMessage()">Send</button>
         </div>
     </div>
 
-    <script>
-        function sendMessage() {
-            var input = document.getElementById("userInput");
-            var message = input.value.trim();
-            if (message) {
-                var chatBody = document.getElementById("chatBody");
-                
-                // Create user message
-                var userMessage = document.createElement("div");
-                userMessage.classList.add("chat-message", "user");
-                userMessage.textContent = message;
-                chatBody.appendChild(userMessage);
-
-                // Scroll to bottom of chat
-                chatBody.scrollTop = chatBody.scrollHeight;
-
-                // Clear input field
-                input.value = "";
-
-                // Simulate system response
-                setTimeout(function() {
-                    var systemMessage = document.createElement("div");
-                    systemMessage.classList.add("chat-message", "system");
-                    systemMessage.textContent = "Thank you for your message!";
-                    chatBody.appendChild(systemMessage);
-                    
-                    // Scroll to bottom of chat
-                    chatBody.scrollTop = chatBody.scrollHeight;
-                }, 1000);
-            }
-        }
-    </script>
+    <script type="module" src="./init-clients.js"> </script>
+    <script type="module" src="./sendMessage.js"> </script>
 
 
     <footer>
