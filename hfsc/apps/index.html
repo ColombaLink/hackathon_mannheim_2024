@@ -6,10 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Based Client Example</title>
 </head>
+
 <body>
-    <button id="login">Login</button> 
+    <button id="login">Login</button>
     <button id="logout" style="visibility: hidden;">Logout</button>
     <script type="module" src="./login.js"> </script>
+    <script type="module" src="./utils.js"> </script>
+
+    <div>Status: <span id="status"></span> </div>
+
+    <button onclick="createOrg()">Create Org</button>
+
+    <script>
+        function createOrg() {
+            console.log('what');
+            window.api.organization.createOrganization.mutate(
+                { name: 'Test Org', alias: 'testorg' },
+                { context: { scope: { userId: 'us00000000' } } }
+            )
+                .then(() => window.utils.setStatus('Created Org.'))
+                .catch(e => window.utils.setStatus(e.message));
+        }
+    </script>
 </body>
 
 </html>

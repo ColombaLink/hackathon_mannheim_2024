@@ -1,5 +1,5 @@
 
-import { BasedClient } from 'https://app.sc.hack.monidas.com/libs/based-client.js';
+import { BasedClient, createTrpcClient } from 'https://app.sc.hack.monidas.com/libs/based-client.js';
 
 const afterLogout = () => {
     localStorage.removeItem("authState");
@@ -23,6 +23,10 @@ window.client = new BasedClient()
 window.client.connect({
     url: `wss://api.sc.hack.monidas.com/hub/ws/`
 })
+
+
+window.api = await createTrpcClient(window.client, "monidas:app:api:v0.0.2")
+
 
 const authState = JSON.parse(localStorage.getItem("authState"))
 if (authState) {
