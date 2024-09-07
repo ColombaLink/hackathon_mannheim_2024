@@ -1,6 +1,6 @@
 const config = {
   name: 'sc:ai:index',
   type: 'function',
-  public: false
+  public: true 
 }
 export default config

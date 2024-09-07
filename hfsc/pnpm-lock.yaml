@@ -27,8 +27,11 @@ importers:
         specifier: 0.0.2-next-hackfestival-7
         version: 0.0.2-next-hackfestival-7(@types/react@18.3.5)(eslint@7.32.0)(prettier@2.8.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@colombalink/cbased-core':
-        specifier: 2.0.0-alpha6
-        version: 2.0.0-alpha6(react@18.2.0)
+        specifier: 2.0.0-hack-1
+        version: 2.0.0-hack-1(react@18.2.0)
+      '@dqbd/tiktoken':
+        specifier: 1.0.16
+        version: 1.0.16
       '@saulx/eslint-config':
         specifier: ^1.1.1
         version: 1.1.1(eslint@7.32.0)
@@ -195,6 +198,9 @@ packages:
 
   '@colombalink/cbased-core@2.0.0-alpha6':
     resolution: {integrity: sha512-tKu6wcq7z1exQbAo4WAR/fXM+GCw+nAayqZpjD6U/6N8CZPZRZMSiSPI8vslI8KbS2xozMLe/HP+L77/bcWkdg==, tarball: https://npm.pkg.github.com/download/@colombalink/cbased-core/2.0.0-alpha6/1bbdea54d4cb3f44007ed94c404c23ffa91ae75e}
+
+  '@colombalink/cbased-core@2.0.0-hack-1':
+    resolution: {integrity: sha512-TvxXTsjdPjJtPvpEWqgorJ6wbSa4rvlT/r7fITZHWa9PQwR1GIfNVBGX9SKVgJ0isdlMSD6xkrqvP1zeP0R3xQ==, tarball: https://npm.pkg.github.com/download/@colombalink/cbased-core/2.0.0-hack-1/c33da8745c34e622330e757719226964aec4f2fa}
 
   '@colombalink/crypto@1.0.0':
     resolution: {integrity: sha512-mLExt/5M6ghhWhaE6fMKTzsZ4ucHG9Vc5leOrNi6vJL7P77VO0+ney5vawBql3RSWPPVb5C+hjccV/qVPdU22Q==, tarball: https://npm.pkg.github.com/download/@colombalink/crypto/1.0.0/f1bc2208a7fa5c907b38e0e51a9f2f51c8887e21}
@@ -3937,6 +3943,25 @@ snapshots:
       - utf-8-validate
 
   '@colombalink/cbased-core@2.0.0-alpha6(react@18.2.0)':
+    dependencies:
+      '@based/client': 6.9.0
+      '@based/server': 9.1.0
+      '@based/use-local-storage': 0.4.2(react@18.2.0)
+      '@colombalink/crypto': 1.0.0
+      '@influxdata/influxdb-client': 1.35.0
+      '@saulx/hash': 3.0.0
+      '@saulx/selva': 23.0.2
+      '@saulx/selva-server': 23.0.2
+      esbuild: 0.18.11
+      source-map-support: 0.5.21
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - react
+      - supports-color
+      - utf-8-validate
+
+  '@colombalink/cbased-core@2.0.0-hack-1(react@18.2.0)':
     dependencies:
       '@based/client': 6.9.0
       '@based/server': 9.1.0
