@@ -4,13 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Based Client Example</title>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+    <title>Hack Admin App</title>
 </head>
 
 <body>
+   
+    <ion-app>
+        <ion-nav root="login-page"></ion-nav>
+    </ion-app>
+    
     <button id="login">Login</button>
     <button id="logout" style="visibility: hidden;">Logout</button>
-    <script type="module" src="./login.js"> </script>
+    <script type="module" src="./pages/login.js"> </script>
     <script type="module" src="./utils.js"> </script>
 
     <div>Status: <span id="status"></span> </div>
@@ -21,7 +29,7 @@
         function createOrg() {
             console.log('what');
             window.api.organization.createOrganization.mutate(
-                { name: 'Test Org', alias: 'testorg' },
+                { name: 'Test Org 6', alias: 'testorg6' },
                 { context: { scope: { userId: 'us00000000' } } }
             )
                 .then(() => window.utils.setStatus('Created Org.'))

@@ -5,13 +5,14 @@
     "scripts": {
         "watch:server": "node scripts/server/start.mjs",
         "start:ui": "node scripts/ui/start.mjs",
+        "build:ui:libs": "node scripts/ui/build.js",
         "install:ui": "rm -rf app/dist && unzip app/app.zip -d app/dist",
         "test": "tsc && ava --color --timeout 3m --verbose --serial"
     },
     "devDependencies": {
         "@saulx/eslint-config": "^1.1.1",
         "ava": "6.1.3",
-        "@colombalink/app-backend-types": "0.0.2-next-hackfestival-5",
+        "@colombalink/app-backend-types": "0.0.2-next-hackfestival-7",
         "@trpc/client": "10.45.0",
         "@colombalink/cbased-core": "2.0.0-alpha6",
         "@based/client": "6.10.1",

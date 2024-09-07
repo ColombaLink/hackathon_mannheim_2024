@@ -21,8 +21,8 @@ importers:
         specifier: 9.1.0
         version: 9.1.0
       '@colombalink/app-backend-types':
-        specifier: 0.0.2-next-hackfestival-5
-        version: 0.0.2-next-hackfestival-5(@types/react@18.3.5)(eslint@7.32.0)(prettier@2.8.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        specifier: 0.0.2-next-hackfestival-7
+        version: 0.0.2-next-hackfestival-7(@types/react@18.3.5)(eslint@7.32.0)(prettier@2.8.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@colombalink/cbased-core':
         specifier: 2.0.0-alpha6
         version: 2.0.0-alpha6(react@18.2.0)
@@ -112,8 +112,8 @@ packages:
   '@chirpstack/chirpstack-api@4.9.0':
     resolution: {integrity: sha512-+CNO/cQ3TuoR/2JT2bB5jEtxIJQJoqTofVf2dmeQuhOcvSNu1+imSPCo9Zmpru+D8o+XWcoZWog447XpKFVZYQ==}
 
-  '@colombalink/app-backend-types@0.0.2-next-hackfestival-5':
-    resolution: {integrity: sha512-qOq02TW6dMF0f7YsaVulh0zR9oklU5aLeDOc5R1w+NPpNhk1sr4YymUHqnBVYjW2OVT5mCv4MKgzcaRfbDoHOQ==, tarball: https://npm.pkg.github.com/download/@colombalink/app-backend-types/0.0.2-next-hackfestival-5/29f343f70d9eb583a8ccb12f02e84d3167d1e637}
+  '@colombalink/app-backend-types@0.0.2-next-hackfestival-7':
+    resolution: {integrity: sha512-L0khpRsN23Pw6nXF6hGm0iq4P+DEAISrxMWByyuPjSrFmkhxZVosU/+PJ1DsiV+S4w8jlJ7YX/mcuo4bS7DXBw==, tarball: https://npm.pkg.github.com/download/@colombalink/app-backend-types/0.0.2-next-hackfestival-7/4ddf28877ab3fd78ff2ac93d50989343e5d8844c}
 
   '@colombalink/cbased-core@2.0.0-alpha6':
     resolution: {integrity: sha512-tKu6wcq7z1exQbAo4WAR/fXM+GCw+nAayqZpjD6U/6N8CZPZRZMSiSPI8vslI8KbS2xozMLe/HP+L77/bcWkdg==, tarball: https://npm.pkg.github.com/download/@colombalink/cbased-core/2.0.0-alpha6/1bbdea54d4cb3f44007ed94c404c23ffa91ae75e}
@@ -3438,7 +3438,7 @@ snapshots:
       - encoding
       - supports-color
 
-  '@colombalink/app-backend-types@0.0.2-next-hackfestival-5(@types/react@18.3.5)(eslint@7.32.0)(prettier@2.8.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+  '@colombalink/app-backend-types@0.0.2-next-hackfestival-7(@types/react@18.3.5)(eslint@7.32.0)(prettier@2.8.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
       '@based/client': 6.10.1
       '@based/react': 5.0.2(@based/client@6.10.1)(react@18.2.0)
