@@ -6,7 +6,11 @@ const loggedInHtml = `
   </ion-header>
   <ion-content class="ion-padding">
     <h1>You are logged in.</h1>
-    <ion-button id="logout-button">Logout</ion-button> 
+    <ion-button id="logout-button">Logout</ion-button>
+     
+    <ion-nav-link router-direction="forward" component="data-ingestion-page">
+      <ion-button>Go to Page Two</ion-button>
+    </ion-nav-link>
   </ion-content>
 `;
 
@@ -19,6 +23,7 @@ const loggedOutHtml = `
   <ion-content class="ion-padding">
     <h1>You are logged out.</h1>
     <ion-button id="login-button">Login</ion-button> 
+          
   </ion-content>
 `;
 
@@ -71,5 +76,7 @@ class LoginPage extends HTMLElement {
     this.innerHTML = loggedOutHtml;
   }
 }
+
+
 
 customElements.define('login-page', LoginPage);
