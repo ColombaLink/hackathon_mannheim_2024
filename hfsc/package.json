@@ -15,6 +15,7 @@
         "@colombalink/app-backend-types": "0.0.2-next-hackfestival-7",
         "@trpc/client": "10.45.0",
         "@colombalink/cbased-core": "2.0.0-alpha6",
+        "@colombalink/ai-index": "0.0.7", 
         "@based/client": "6.10.1",
         "@based/server": "9.1.0",
         "@based/react": "5.0.2",
