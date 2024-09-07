@@ -1,4 +1,4 @@
-import { getAllOrganizations } from "../helper/index.js";
+import { getAllOrganizations, getContext } from "../helper/index.js";
 
 const initialHtml = `
   <ion-header>
@@ -38,19 +38,19 @@ class DataIngestionsPage extends HTMLElement {
     const orgs = await getAllOrganizations()
 
     for (const { alias } of orgs) {
-      await api.organization.deleteOrganization.mutate({ orgAliasId: alias }, { context: { scope: { userId: 'us00000000' } } })
+      await api.organization.deleteOrganization.mutate({ orgAliasId: alias }, getContext())
     }
 
     const org = await api.organization.createOrganization.mutate(
       { name: 'Lidl Schweiz Rebergasse 20', alias: 'lidl-schweiz-rebgasse-20' },
-      { context: { scope: { userId: 'us00000000' } } }
+       getContext() 
     )
 
     api.project.createProject.mutate({
       alias: 'inventory',
       name: "Inventory",
     },
-      { context: { scope: { userId: 'us00000000', orgAliasId: org.alias } } }
+      getContext() 
     )
   }
 
