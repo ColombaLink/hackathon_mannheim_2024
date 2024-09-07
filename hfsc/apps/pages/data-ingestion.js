@@ -29,11 +29,11 @@ class DataIngestionPage extends HTMLElement {
     this.querySelector('#btn-create-org-and-ingest-data').addEventListener('click', () => this.createOrgAndIngestData());
     this.querySelector('#btn-start-simulation').addEventListener('click', () => {
       // Check if the simulation is already running based on the button visibility
-     
-      if(window.simulation && window.simulation.isRunning) {
+
+      if (window.simulation && window.simulation.isRunning) {
         console.info("Simulation is running.")
-      } 
-      
+      }
+
       // Hide the start button and show the stop button
       this.querySelector('#btn-start-simulation').style.visibility = 'hidden';
       this.querySelector('#btn-stop-simulation').style.visibility = 'visible';
@@ -92,7 +92,10 @@ class DataIngestionPage extends HTMLElement {
       item.name = sanitizeName(item.name)
       if (thingsMap.has(item.name)) {
         const thing = thingsMap.get(item.name)
-        thing.available = thing.available + item.available
+        thing.items.push({
+          ...item,
+          expiresAt: new Date(item.expiresAt).getTime()
+        })
         continue
       }
 
@@ -100,8 +103,38 @@ class DataIngestionPage extends HTMLElement {
         name: item.name,
       }, getContext())
 
+      const t = {
+
+        items: [
+          {
+            "id": "1",
+            "name": "Cherry Tomatoes",
+            "expiresAt": 1233422345435, // to unix
+            "price": 2.79,
+            "weight": "250g",
+            "packagingUnit": "punnet",
+            "available": 19,
+          },
+          {
+            "id": "2",
+            "name": "Cherry Tomatoes",
+            "expiresAt": 1233422345234, // to unix
+            "price": 2.79,
+            "weight": "250g",
+            "packagingUnit": "punnet",
+            "available": 5,
+          }
+        ],
+        // thing
+        uuid: '',
+        alias: ''
+      }
+
       thingsMap.set(item.name, {
-        available: item.available,
+        items: [{
+          ...item,
+          expiresAt: new Date(item.expiresAt).getTime()
+        }],
         ...thing
       })
 

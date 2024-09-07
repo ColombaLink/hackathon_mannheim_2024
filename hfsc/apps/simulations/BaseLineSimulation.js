@@ -54,9 +54,15 @@ export class BaselineSimulation extends HTMLElement {
         for (let i = 0; i < 10; i++) {
             for (const item of inventory.values()) {
                 console.log(item)
+                console.log(item)
+                let aggregatedItemQuantity = 0
+                for(let i of item.items) {
+                    aggregatedItemQuantity += i.available
+                }
+
                 await client.call("datahub:events:push", {
                     headers: { 'x-monidas-uuid': item.UUID.replace("uuid/", "") },
-                    payload: { time: start + i * 1000 * 60, quantity: item.available * Math.random() * 10 }
+                    payload: { time: start + i * 1000 * 60, quantity: aggregatedItemQuantity * Math.random() * 10 }
                 }).then(console.log).catch(console.log)
             }
         }
