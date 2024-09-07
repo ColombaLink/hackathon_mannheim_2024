@@ -43,16 +43,40 @@ class DataIngestionsPage extends HTMLElement {
 
     const org = await api.organization.createOrganization.mutate(
       { name: 'Lidl Schweiz Rebergasse 20', alias: 'lidl-schweiz-rebgasse-20' },
-       getContext() 
+      getContext()
     )
 
-    api.project.createProject.mutate({
+    const project = await api.project.createProject.mutate({
       alias: 'inventory',
       name: "Inventory",
     },
-      getContext() 
+      getContext()
     )
+
+    const rawInventory = await (await fetch("./data/inventoryItems.json")).json()
+    console.log(rawInventory)
+
+
+
+    await api.project.quotas.setQuota.mutate({
+      limit: 1000000000000,
+    }, getContext())
+
+
+    const created = new Map()
+    for (const item of rawInventory) {
+      if(created.has(item.name)) {
+        return 
+      }
+
+      await api.project.addThingToProject.mutate({
+        name: item.name,
+      }, getContext())
+
+      created.set(item.name, true)
+    }
   }
+
 
   render() {
     this.innerHTML = initialHtml;
