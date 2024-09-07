@@ -1,5 +1,5 @@
 import { getAllOrganizations, getContext, loadMap, sanitizeNames as sanitizeName, saveMap } from "../helper/index.js";
-
+import { BaselineSimulation } from "../simulations/BaseLineSimulation.js";
 const initialHtml = `
   <ion-header>
     <ion-toolbar>
@@ -8,26 +8,46 @@ const initialHtml = `
   </ion-header>
   <ion-content class="ion-padding">
     <h1>Setup Data</h1>
-    <ion-button id="btn-create-org">Create Org</ion-button> 
+    <ion-button id="btn-create-org-and-ingest-data">Create Org</ion-button> 
+    <ion-button id="btn-start-simulation">Start Baseline Simulation</ion-button>
+    <ion-button id="btn-stop-simulation" style="visibility:hidden">Stop Baseline Simulation</ion-button>
+    
+    <div id="segment-baseline-simulation"> </div>
+    
   </ion-content>
 `;
 
 
 
-
-
-class DataIngestionsPage extends HTMLElement {
+class DataIngestionPage extends HTMLElement {
   connectedCallback() {
     this.render();
     this.updateView();
   }
 
   updateView() {
-    this.querySelector('#btn-create-org').addEventListener('click', () => this.createOrg());
+    this.querySelector('#btn-create-org-and-ingest-data').addEventListener('click', () => this.createOrgAndIngestData());
+    this.querySelector('#btn-start-simulation').addEventListener('click', () => {
+      // Check if the simulation is already running based on the button visibility
+     
+      if(window.simulation && window.simulation.isRunning) {
+        console.info("Simulation is running.")
+      } 
+      
+      // Hide the start button and show the stop button
+      this.querySelector('#btn-start-simulation').style.visibility = 'hidden';
+      this.querySelector('#btn-stop-simulation').style.visibility = 'visible';
+
+      // Render the baseline simulation component
+      this.querySelector('#segment-baseline-simulation').innerHTML = `<baseline-simulation></baseline-simulation>`;
+      console.log("Baseline simulation started.");
+    });
+
   }
 
 
-  async createOrg() {
+
+  async createOrgAndIngestData() {
 
     /**
     * @typedef {import('@colombalink/app-backend-types').AppRouterType} AppRouterType
@@ -121,9 +141,7 @@ class DataIngestionsPage extends HTMLElement {
     }
 
     saveMap("inventoryMap", thingsMap)
-    const map = loadMap("inventoryMap")
-
-    console.log(map)
+    loadMap("inventoryMap")
   }
 
 
@@ -133,7 +151,7 @@ class DataIngestionsPage extends HTMLElement {
   }
 }
 
-customElements.define('data-ingestion-page', DataIngestionsPage);
+customElements.define('data-ingestion-page', DataIngestionPage);
 
 
 
