@@ -10,40 +10,51 @@ const fn: BasedFunction = async (based, payload, x) => {
 
     ai.formatDateToYYYYMMDD
 
+    // Initial system message
+    let promptMessages = [{
+        role: 'system', 
+        content: `  
+        You are an assistant that helps supermarket inventory manager to minimize food waste.
+        As the user, the inventory manager could ask you to provide food recipes based on his 
+        preferences. Your answer should be in a conversational and concise manner.
+        ` 
+}];
+
     let result = await openAiChatService.chat.completions.create({
         model: 'gpt-4o',
         messages: [{
-            role: 'system', content: `
-            
-You are an assistant that provide mapping between a food and a list of items of a supermarket
-inventory.query contains a food item. sources include top similar inventory items found for that food item using a search index.
-Priority of your answer as below,
-1. use the smallest expireAt value in the sources to prioritize finding the inventory item.
-Answer the query using only the facts listed in sources provides below.
-Answer should containt the most suited food item from the inventory in following json format,
+            role: 'system', 
+            content: `  
+            You are an assistant that helps supermarket inventory manager to minimize food waste.
+            As the user, inventory manager could ask you to provide food receipes based on his 
+            preferences. Yous answer should be in a conversationl and concise manner.
             ` },
          
         ],
+        
         max_tokens: 200,
         //stream: true // better for realtime and long responses
     });
 
-    const message = result.choices.map(c => (c.message))
+    let message = result.choices.map(c => (c.message))
     messages.push(message)
 
-    message.push({
-        content: 'user mesage',
+    messages.push({
         role: 'user',
-    })
-
-    // next system message.. 
-
-    result = await openAiChatService.chat.completions.create({
-        model: 'gpt-4o',
-        messages,
-        max_tokens: 200,
-        //stream: true // better for realtime and long responses
+        content: 'We have some tomatoes, cucumber, and olives left. Can you give me some healthy recipe from these items?'
     });
+
+    // // // next system message.. 
+
+    // result = await openAiChatService.chat.completions.create({
+    //     model: 'gpt-4o',
+    //     messages,
+    //     max_tokens: 200,
+    //     //stream: true // better for realtime and long responses
+    // });
+
+    // message = result.choices.map(c => (c.message))
+    // messages.push(message)
 
     return {
         messages
