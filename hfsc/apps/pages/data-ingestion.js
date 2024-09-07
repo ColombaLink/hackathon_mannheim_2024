@@ -29,18 +29,29 @@ class DataIngestionsPage extends HTMLElement {
 
   async createOrg() {
 
+    /**
+    * @typedef {import('@colombalink/app-backend-types').AppRouterType} AppRouterType
+    * @typedef {import('./type.js').api} Api
+    * @type {Api}
+    */
+    const api = window.api
     const orgs = await getAllOrganizations()
-    
-    for(const {alias} of orgs) {
-      await window.api.organization.deleteOrganization.mutate({ orgAliasId: alias }, { context: { scope: {  userId: 'us00000000' }}})
+
+    for (const { alias } of orgs) {
+      await api.organization.deleteOrganization.mutate({ orgAliasId: alias }, { context: { scope: { userId: 'us00000000' } } })
     }
 
-
-    const org = await window.api.organization.createOrganization.mutate(
+    const org = await api.organization.createOrganization.mutate(
       { name: 'Lidl Schweiz Rebergasse 20', alias: 'lidl-schweiz-rebgasse-20' },
       { context: { scope: { userId: 'us00000000' } } }
     )
-    console.log(org)
+
+    api.project.createProject.mutate({
+      alias: 'inventory',
+      name: "Inventory",
+    },
+      { context: { scope: { userId: 'us00000000', orgAliasId: org.alias } } }
+    )
   }
 
   render() {
