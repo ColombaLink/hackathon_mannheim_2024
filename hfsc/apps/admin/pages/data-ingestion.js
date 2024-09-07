@@ -131,6 +131,7 @@ class DataIngestionPage extends HTMLElement {
       }
 
       thingsMap.set(item.name, {
+        name: item.name,
         items: [{
           ...item,
           expiresAt: new Date(item.expiresAt).getTime()

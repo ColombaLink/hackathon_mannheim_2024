@@ -6,6 +6,16 @@ const initialHtml = `
     Baseline Simulation
 `;
 
+function restock(item, simTime) {
+    const start = new Date("2024-09-06T08:00:00.00Z").getTime();
+    const inventory = loadMap("inventoryMap")
+    item.items.push({
+        ...inventory.get(item.name).items[0],
+        expiresAt: inventory.get(item.name).items[0].expiresAt - start
+    })
+    console.log(item)
+
+}
 
 function calcSum(item) {
     let sum = 0
@@ -91,7 +101,7 @@ export class BaselineSimulation extends HTMLElement {
         const stepSize = 10;
         const oneHour = 1000 * 60 * 60
 
-        for (const item of inventory.values()) {
+        for (const item of inventory.values()) {     
             await client.call("datahub:events:push", {
                 headers: { 'x-monidas-uuid': item.UUID.replace("uuid/", "") },
                 payload: { time: start, quantity: calcSum(item) }
@@ -104,6 +114,7 @@ export class BaselineSimulation extends HTMLElement {
             console.log(simulationTime)
             console.log(new Date(simulationTime).toISOString())
 
+
             // Step 2: If i > 0, randomly generate a shopping list from the inventory items
             const shoppingList = [];
                 // Randomly select a number of items to be part of the shopping list
@@ -113,7 +124,6 @@ export class BaselineSimulation extends HTMLElement {
                 for (let j = 0; j < numItemsInList; j++) {
                     const randomItemIndex = Math.floor(Math.random() * inventoryArray.length);
                     const selectedItem = inventoryArray[randomItemIndex];
-
                     shoppingList.push(selectedItem);
                 }
 
@@ -125,6 +135,9 @@ export class BaselineSimulation extends HTMLElement {
                     let aggregatedItemQuantity = calculateRemainingSum(item, randomAmount);
                     console.log(`aggregatedItemQuantity: ${aggregatedItemQuantity}`);
 
+                    if(calcSum(item) < 10) {
+                        restock(item, simulationTime)
+                    }
 
                     await client.call("datahub:events:push", {
                         headers: { 'x-monidas-uuid': item.UUID.replace("uuid/", "") },
