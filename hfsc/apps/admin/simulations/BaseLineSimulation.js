@@ -98,10 +98,10 @@ export class BaselineSimulation extends HTMLElement {
         const start = new Date("2024-09-06T08:00:00.00Z").getTime();
 
         // simulation step size
-        const stepSize = 10;
+        const stepSize = 100000;
         const oneHour = 1000 * 60 * 60
 
-        for (const item of inventory.values()) {     
+        for (const item of inventory.values()) {
             await client.call("datahub:events:push", {
                 headers: { 'x-monidas-uuid': item.UUID.replace("uuid/", "") },
                 payload: { time: start, quantity: calcSum(item) }
@@ -117,36 +117,42 @@ export class BaselineSimulation extends HTMLElement {
 
             // Step 2: If i > 0, randomly generate a shopping list from the inventory items
             const shoppingList = [];
-                // Randomly select a number of items to be part of the shopping list
-                const numItemsInList = Math.floor(Math.random() * inventory.size) + 1;
-                // Randomly pick items from the inventory to form the shopping list
-                const inventoryArray = Array.from(inventory.values());
-                for (let j = 0; j < numItemsInList; j++) {
-                    const randomItemIndex = Math.floor(Math.random() * inventoryArray.length);
-                    const selectedItem = inventoryArray[randomItemIndex];
-                    shoppingList.push(selectedItem);
+            // Randomly select a number of items to be part of the shopping list
+            const numItemsInList = Math.floor(Math.random() * inventory.size) + 1;
+            // Randomly pick items from the inventory to form the shopping list
+            const inventoryArray = Array.from(inventory.values());
+            for (let j = 0; j < numItemsInList; j++) {
+                const randomItemIndex = Math.floor(Math.random() * inventoryArray.length);
+                const selectedItem = inventoryArray[randomItemIndex];
+                shoppingList.push(selectedItem);
+            }
+
+            // Write (log and push) only the items in the shopping list
+            for (const item of shoppingList) {
+
+                const randomAmount = Math.floor(Math.random() * 10);
+                console.log(`randomAmount: ${randomAmount}`);
+                let aggregatedItemQuantity = calculateRemainingSum(item, randomAmount);
+                console.log(`aggregatedItemQuantity: ${aggregatedItemQuantity}`);
+
+                if (calcSum(item) < 10) {
+                    restock(item, simulationTime)
                 }
 
-                // Write (log and push) only the items in the shopping list
-                for (const item of shoppingList) {
-
-                    const randomAmount = Math.floor(Math.random() * 10);
-                    console.log(`randomAmount: ${randomAmount}`);
-                    let aggregatedItemQuantity = calculateRemainingSum(item, randomAmount);
-                    console.log(`aggregatedItemQuantity: ${aggregatedItemQuantity}`);
-
-                    if(calcSum(item) < 10) {
-                        restock(item, simulationTime)
-                    }
-
-                    await client.call("datahub:events:push", {
-                        headers: { 'x-monidas-uuid': item.UUID.replace("uuid/", "") },
-                        payload: { time: simulationTime, quantity: calcSum(item) }
-                    }).then(console.log).catch(console.log);
-                }
+                await client.call("datahub:events:push", {
+                    headers: { 'x-monidas-uuid': item.UUID.replace("uuid/", "") },
+                    payload: { time: simulationTime, quantity: calcSum(item) }
+                }).then(console.log).catch(console.log);
+            }
 
 
+            await new Promise((r) => {
+                setTimeout(() => {
+                    r()
+                }, 1000)
+            })
         }
+
 
     }
 
