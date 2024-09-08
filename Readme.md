@@ -12,10 +12,11 @@ touch .devcontainer/home/.bash_history
 ```
 
 # Special Thanks to:
-Fabrzio Parrillo 
-Niluka Piyasinghe
-Normand Overney 
-Genti Zarari
-Anyla Musa
 
-![image](https://github.com/user-attachments/assets/5d24a54a-e295-4c8c-9b71-599d4dd4f58d)
+- Fabrzio Parrillo 
+- Niluka Piyasinghe
+- Normand Overney 
+- Genti Zarari
+- Anyla Musa
+
+<img src="https://github.com/user-attachments/assets/5d24a54a-e295-4c8c-9b71-599d4dd4f58d" alt="image" width="300"/>
