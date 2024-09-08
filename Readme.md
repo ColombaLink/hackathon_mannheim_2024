@@ -17,6 +17,5 @@ Niluka Piyasinghe
 Normand Overney 
 Genti Zarari
 Anyla Musa
-![image](https://github.com/user-attachments/assets/10164b5d-11d7-4529-9d44-e67e25390d3d)
 
-
+![image](https://github.com/user-attachments/assets/5d24a54a-e295-4c8c-9b71-599d4dd4f58d)
