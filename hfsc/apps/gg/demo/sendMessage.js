@@ -24,7 +24,7 @@ let chatMessages = [
 
 chatMessages = chatMessages.reverse()
 
-let messages = [initialMessage]
+let messages = [ initialMessage ]
 
 
 async function sendMessage() {

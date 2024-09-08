@@ -1,16 +1,9 @@
 let messages = [
     {
-        role: 'system',
-        content: "bla",
-    },
-    {
-        role: 'assistant',
-        content: "assss",
-    },
-    {
-        role: 'user',
-        content: "user me",
+        "content": "Hi, I'm your AI assistant, here to help you find creative ways to minimize food waste. Just let me know which items need attention, and we'll craft some great deals together!",
+        "role": "assistant"
     }
+
 ];
 
 async function sendMessage() {
@@ -19,8 +12,7 @@ async function sendMessage() {
      * @type {Client}   
      */
     const client = window.client;
-    client.call("sc:chat").catch(console.log).then(console.log)
-    console.log()
+
     console.log("message");
     var input = document.getElementById("userInput");
     var message = input.value.trim();
@@ -32,10 +24,10 @@ async function sendMessage() {
         input.value = "";
 
         // Call the backend and get the assistant's response
-        let assistantResponse = await client.call("sc:chat", { message });
+        let response = await client.call("sc:chat", { messages });
 
         // Add assistant message to messages array
-        messages.push({ role: 'assistant', content: assistantResponse });
+        messages = response.messages
 
         // Update the chat body with filtered messages
         updateChatBody();
@@ -65,4 +57,6 @@ function updateChatBody() {
     chatBody.scrollTop = chatBody.scrollHeight;
 }
 
+
+updateChatBody()
 window.sendMessage = sendMessage;

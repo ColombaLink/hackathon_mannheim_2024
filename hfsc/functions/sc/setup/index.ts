@@ -2,8 +2,25 @@ import { BasedFunction } from '@colombalink/cbased-core'
 import * as ai from '@colombalink/ai-index'
 
 
-
 const fn: BasedFunction = async (based, payload, x) => {
+    console.log("Run next", payload)
+    const messages = payload?.messages || []
+    const { azure, indexer, openAiChatService, searchClient } = ai
+    await indexer.createInventorySearchIndex("inventory-index")
+
+    let result = await openAiChatService.chat.completions.create({
+        model: 'gpt-4o',
+        messages,
+        max_tokens: 200,
+        //stream: true // better for realtime and long responses
+    });
+
+    const message = result.choices.map(c => (c.message))
+    messages.push(message[0])
+
+    return { messages }
+}
+const fn1: BasedFunction = async (based, payload, x) => {
     console.log("Run AI FUN", payload)
     const messages = payload?.messages || []
     const { azure, indexer, openAiChatService, searchClient } = ai
@@ -14,7 +31,7 @@ const fn: BasedFunction = async (based, payload, x) => {
     const searchResults = await searchClient.search(query, {
         top: 3,
         orderBy: ["expiresAt asc"], // use it when if the expire date should be rank higher
-      
+
     });
 
     let expireSoon: string[] = [];
@@ -26,7 +43,7 @@ const fn: BasedFunction = async (based, payload, x) => {
 
     let contextMessages = []
     let message = {
-        role: 'system', 
+        role: 'system',
         content: `  
         You are an assistant that helps to manage a supermarket's inventory to minimize food waste.
         As the user, inventory manager could ask you to provide food deals that combines earlist expiring
@@ -70,7 +87,7 @@ const fn: BasedFunction = async (based, payload, x) => {
     };
     messages.push(message)
     contextMessages.push(message)
- 
+
     result = await openAiChatService.chat.completions.create({
         model: 'gpt-4o',
         messages: contextMessages,
