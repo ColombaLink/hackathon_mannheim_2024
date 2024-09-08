@@ -1,5 +1,5 @@
 const config = {
-  name: 'sc:ai:index',
+  name: 'sc:chat',
   type: 'function',
   public: true 
 }

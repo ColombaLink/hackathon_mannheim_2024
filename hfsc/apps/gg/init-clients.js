@@ -11,6 +11,6 @@ import { BasedClient, createTrpcClient } from 'https://app.sc.hack.monidas.com/l
  */
 window.client = new BasedClient()
 window.client.connect({
-    url: `wss://api.sc.hack.monidas.com/hub/ws/`
+    url: `wss://api.sc.hack.monidas.com/ws2/`
 })
 

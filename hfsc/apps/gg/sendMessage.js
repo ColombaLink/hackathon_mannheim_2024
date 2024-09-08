@@ -16,10 +16,11 @@ let messages = [
 async function sendMessage() {
     /**
      * @typedef {import('@based/client').BasedClient} Client 
-     * @type {Client}
+     * @type {Client}   
      */
     const client = window.client;
-
+    client.call("sc:chat").catch(console.log).then(console.log)
+    console.log()
     console.log("message");
     var input = document.getElementById("userInput");
     var message = input.value.trim();
